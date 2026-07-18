@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Browse Properties - HavenPortal{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        
+        <!-- Search and Filters Card -->
+        <div class="premium-card p-4 mb-5 bg-white border shadow-sm">
+            <h4 class="fw-bold mb-4 text-primary"><i class="fa-solid fa-filter me-2"></i>Filter Properties</h4>
+            <form method="GET" action="{% url 'listings' %}" class="row g-3">
+                <!-- Keywords Search -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label fw-600">Search Keywords</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-secondary"></i></span>
+                        <input type="text" name="q" class="form-control" placeholder="Search by name, city, address..." value="{{ query }}">
+                    </div>
+                </div>
+
+                <!-- City Filter -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label fw-600">City</label>
+                    <select name="city" class="form-select">
+                        <option value="">All Cities</option>
+                        {% for city in cities %}
+                            <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Bedrooms Filter -->
+                <div class="col-lg-2 col-md-6">
+                    <label class="form-label fw-600">Bedrooms</label>
+                    <select name="bedrooms" class="form-select">
+                        <option value="">Any</option>
+                        <option value="1" {% if selected_bedrooms == "1" %}selected{% endif %}>1 BHK</option>
+                        <option value="2" {% if selected_bedrooms == "2" %}selected{% endif %}>2 BHK</option>
+                        <option value="3" {% if selected_bedrooms == "3" %}selected{% endif %}>3 BHK</option>
+                        <option value="4" {% if selected_bedrooms == "4" %}selected{% endif %}>4+ BHK</option>
+                    </select>
+                </div>
+
+                <!-- Price Filter -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label fw-600">Max Rent (Monthly)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white">₹</span>
+                        <input type="number" name="rent_max" class="form-control" placeholder="e.g. 30000" value="{{ selected_rent }}">
+                    </div>
+                </div>
+
+                <!-- Form Action Buttons -->
+                <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+                    <a href="{% url 'listings' %}" class="btn btn-outline-secondary px-4"><i class="fa-solid fa-rotate-left me-1"></i>Reset</a>
+                    <button type="submit" class="btn btn-primary px-4"><i class="fa-solid fa-search me-1"></i>Search</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Property Grid -->
+        <h2 class="fw-bold mb-4">Available Properties</h2>
+        {% if properties %}
+            <div class="row g-4">
+                {% for property in properties %}
+                    <div class="col-lg-4 col-md-6 slide-up">
+                        <div class="premium-card h-100 bg-white d-flex flex-column justify-content-between">
+                            <div>
+                                <!-- Image & Availability Badge -->
+                                <div class="card-img-wrapper">
+                                    {% if property.main_image %}
+                                        <img src="{{ property.main_image.url }}" alt="{{ property.title }}">
+                                    {% else %}
+                                        <img src="/static/images/placeholder.jpg" alt="{{ property.title }}">
+                                    {% endif %}
+                                    
+                                    {% if property.available %}
+                                        <span class="badge badge-availability bg-success text-white">
+                                            <i class="fa-solid fa-circle-check me-1"></i>Available
+                                        </span>
+                                    {% else %}
+                                        <span class="badge badge-availability bg-danger text-white">
+                                            <i class="fa-solid fa-circle-xmark me-1"></i>Rented
+                                        </span>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Card Content -->
+                                <div class="p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-primary fw-600 fs-5">₹{{ property.rent|floatformat:0 }}/mo</span>
+                                        <span class="text-secondary small"><i class="fa-solid fa-location-dot me-1"></i>{{ property.city }}</span>
+                                    </div>
+                                    <h4 class="card-title fw-bold mb-3 text-truncate">{{ property.title }}</h4>
+                                    <p class="card-text text-secondary text-truncate-2 small mb-4">{{ property.description }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Amenities & Action -->
+                            <div>
+                                <div class="px-4 py-3 bg-light border-top border-bottom d-flex justify-content-around text-center small text-secondary">
+                                    <div>
+                                        <i class="fa-solid fa-bed text-primary mb-1"></i>
+                                        <div>{{ property.bedrooms }} Bed</div>
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-bath text-primary mb-1"></i>
+                                        <div>{{ property.bathrooms }} Bath</div>
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-maximize text-primary mb-1"></i>
+                                        <div>{{ property.area }} sqft</div>
+                                    </div>
+                                </div>
+                                <div class="p-4 d-grid">
+                                    <a href="{% url 'property_detail' property.pk %}" class="btn btn-outline-primary">
+                                        <i class="fa-solid fa-circle-info me-1"></i>View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-5 bg-white border rounded-4 shadow-sm">
+                <div class="text-secondary mb-3"><i class="fa-solid fa-house-circle-xmark fs-1"></i></div>
+                <h4 class="fw-bold">No Properties Found</h4>
+                <p class="text-secondary">Try adjusting your filters or keyword query inputs.</p>
+                <a href="{% url 'listings' %}" class="btn btn-primary mt-2">Clear Filters</a>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

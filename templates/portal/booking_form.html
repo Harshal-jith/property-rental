@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Request Booking - {{ property.title }}{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="premium-card bg-white shadow-sm overflow-hidden">
+                    <div class="row g-0">
+                        <!-- Left Side: Property Brief -->
+                        <div class="col-md-5 bg-dark text-white d-flex flex-column justify-content-between p-5" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(79, 70, 229, 0.8) 100%), url('{{ property.main_image.url }}') no-repeat center center/cover;">
+                            <div>
+                                <h6 class="text-uppercase fw-bold text-info mb-3">Booking Summary</h6>
+                                <h3 class="fw-bold mb-3">{{ property.title }}</h3>
+                                <p class="small mb-4 text-white-50"><i class="fa-solid fa-location-dot me-2 text-info"></i>{{ property.address }}, {{ property.city }}</p>
+                            </div>
+                            
+                            <div class="border-top border-secondary pt-4 mt-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-white-50">Monthly Rent</span>
+                                    <span class="fw-bold text-white fs-5">₹{{ property.rent|floatformat:0 }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-white-50">Refundable Deposit</span>
+                                    <span class="fw-bold text-white">₹25,000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Booking Request Form -->
+                        <div class="col-md-7 p-5">
+                            <h3 class="fw-bold mb-4">Request Booking</h3>
+                            <p class="text-secondary small mb-4">Fill out the booking details below. The owner or our support team will review your application and contact you soon.</p>
+                            
+                            <form method="POST" class="needs-validation" novalidate>
+                                {% csrf_token %}
+                                
+                                {% if form.non_field_errors %}
+                                    <div class="alert alert-danger rounded-3 shadow-sm mb-4">
+                                        {% for error in form.non_field_errors %}
+                                            <div class="small"><i class="fa-solid fa-triangle-exclamation me-1"></i>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                <!-- Name Field (Custom field) -->
+                                <div class="mb-3">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label fw-600">Full Name</label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger small mt-1">{% for error in form.name.errors %}{{ error }}{% endfor %}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="row">
+                                    <!-- Email Field -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.email.id_for_label }}" class="form-label fw-600">Email Address</label>
+                                        {{ form.email }}
+                                        {% if form.email.errors %}
+                                            <div class="text-danger small mt-1">{% for error in form.email.errors %}{{ error }}{% endfor %}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Phone Field -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.phone.id_for_label }}" class="form-label fw-600">Phone Number</label>
+                                        {{ form.phone }}
+                                        {% if form.phone.errors %}
+                                            <div class="text-danger small mt-1">{% for error in form.phone.errors %}{{ error }}{% endfor %}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <!-- Move-in Date Field -->
+                                <div class="mb-3">
+                                    <label for="{{ form.move_in_date.id_for_label }}" class="form-label fw-600">Preferred Move-in Date</label>
+                                    {{ form.move_in_date }}
+                                    {% if form.move_in_date.errors %}
+                                        <div class="text-danger small mt-1">{% for error in form.move_in_date.errors %}{{ error }}{% endfor %}</div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Message Field -->
+                                <div class="mb-4">
+                                    <label for="{{ form.message.id_for_label }}" class="form-label fw-600">Message to Landlord</label>
+                                    {{ form.message }}
+                                    {% if form.message.errors %}
+                                        <div class="text-danger small mt-1">{% for error in form.message.errors %}{{ error }}{% endfor %}</div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="d-flex justify-content-end gap-2 mt-4">
+                                    <a href="{% url 'property_detail' property.pk %}" class="btn btn-outline-secondary px-4">Cancel</a>
+                                    <button type="submit" class="btn btn-primary px-4"><i class="fa-solid fa-paper-plane me-2"></i>Submit Booking Request</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

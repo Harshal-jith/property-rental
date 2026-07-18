@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Find Your Perfect Home - HavenPortal{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section fade-in">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 text-start">
+                <h1 class="hero-title mb-4">Find Your Perfect Home Today</h1>
+                <p class="hero-lead mb-5">Discover thousands of verified property listings, experience secure booking workflows, and connect directly with trusted property owners—all in one place.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'listings' %}" class="btn btn-primary btn-lg"><i class="fa-solid fa-magnifying-glass me-2"></i>Browse Properties</a>
+                    <a href="#why-choose-us" class="btn btn-outline-light btn-lg"><i class="fa-solid fa-circle-info me-2"></i>Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section id="stats-section" class="py-5 bg-white border-bottom">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="{{ stats.properties }}" data-suffix="+">0</div>
+                    <p class="text-secondary mb-0 mt-2 font-weight-500">Properties Listed</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="{{ stats.customers }}" data-suffix="+">0</div>
+                    <p class="text-secondary mb-0 mt-2 font-weight-500">Happy Renters</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="{{ stats.landlords }}" data-suffix="+">0</div>
+                    <p class="text-secondary mb-0 mt-2 font-weight-500">Trusted Landlords</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h6 class="text-primary text-uppercase fw-bold">Platform Benefits</h6>
+            <h2 class="fw-bold">Features Crafted For You</h2>
+            <p class="text-secondary max-w-2xl mx-auto">We provide premium utilities designed to streamline your housing searches and booking procedures.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="premium-card p-4 h-100 bg-white">
+                    <div class="d-inline-flex p-3 rounded-3 bg-primary bg-opacity-10 text-primary mb-3">
+                        <i class="fa-solid fa-circle-check fs-4"></i>
+                    </div>
+                    <h4>Verified Properties</h4>
+                    <p class="text-secondary mb-0">Every property listing is thoroughly vetted by our compliance team to ensure authentic address listings and pictures.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="premium-card p-4 h-100 bg-white">
+                    <div class="d-inline-flex p-3 rounded-3 bg-success bg-opacity-10 text-success mb-3">
+                        <i class="fa-solid fa-shield-halved fs-4"></i>
+                    </div>
+                    <h4>Secure Booking</h4>
+                    <p class="text-secondary mb-0">Submit secure booking requests directly through the portal and let our built-in workflows track your progress.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="premium-card p-4 h-100 bg-white">
+                    <div class="d-inline-flex p-3 rounded-3 bg-info bg-opacity-10 text-info mb-3">
+                        <i class="fa-solid fa-envelope-open-text fs-4"></i>
+                    </div>
+                    <h4>Email Confirmation</h4>
+                    <p class="text-secondary mb-0">Get automatic instant email updates and status confirmations directly inside your personal inbox.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mt-4">
+                <div class="premium-card p-4 h-100 bg-white">
+                    <div class="d-inline-flex p-3 rounded-3 bg-warning bg-opacity-10 text-warning mb-3">
+                        <i class="fa-solid fa-sliders fs-4"></i>
+                    </div>
+                    <h4>Easy Property Search</h4>
+                    <p class="text-secondary mb-0">Filter search indexes by cities, specific price cap bounds, and count details of bedrooms instantly.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mt-4">
+                <div class="premium-card p-4 h-100 bg-white">
+                    <div class="d-inline-flex p-3 rounded-3 bg-danger bg-opacity-10 text-danger mb-3">
+                        <i class="fa-solid fa-mobile-screen-button fs-4"></i>
+                    </div>
+                    <h4>Responsive Design</h4>
+                    <p class="text-secondary mb-0">Fully optimized dynamic design architecture compatible across mobiles, tablets, and desktops.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mt-4">
+                <div class="premium-card p-4 h-100 bg-white">
+                    <div class="d-inline-flex p-3 rounded-3 bg-secondary bg-opacity-10 text-dark mb-3">
+                        <i class="fa-solid fa-handshake fs-4"></i>
+                    </div>
+                    <h4>Trusted Owners</h4>
+                    <p class="text-secondary mb-0">Establish reliable renting contracts directly with verified homeowners and landlords.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section id="why-choose-us" class="py-5 bg-white border-bottom">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <img src="/static/images/why-choose-us.jpg" alt="Beautiful Modern Living Room" class="img-fluid rounded-4 shadow-lg">
+            </div>
+            <div class="col-lg-6">
+                <h6 class="text-primary text-uppercase fw-bold">Why Choose Us</h6>
+                <h2 class="fw-bold mb-4">Redefining Your Property Search Experience</h2>
+                <p class="text-secondary mb-4">We believe that finding a home should be an exciting and stress-free journey. Our portal eliminates third-party brokers, enabling transparent deals directly between users and landlords.</p>
+                <div class="d-flex align-items-start mb-3">
+                    <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary me-3 mt-1">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">No Hidden Fees</h5>
+                        <p class="text-secondary">What you see is what you pay. Transparent rents with no extra surprise agency costs.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-3">
+                    <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary me-3 mt-1">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">24/7 Digital Support</h5>
+                        <p class="text-secondary">Our dedicated service representatives are always here to assist with any booking inquiries.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-start">
+                    <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary me-3 mt-1">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Seamless Verification</h5>
+                        <p class="text-secondary">Rest easy knowing that every owner is vetted prior to posting listings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h6 class="text-primary text-uppercase fw-bold">Testimonials</h6>
+            <h2 class="fw-bold">What Our Customers Say</h2>
+            <p class="text-secondary max-w-2xl mx-auto">Read real feedback from happy tenants and landlords who successfully used our platform.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="premium-card p-4 h-100 bg-white d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="text-warning mb-3">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-secondary italic">"The process of searching and requesting a booking was incredibly smooth. Within two days, the owner approved my request, and I moved in the next week. Very premium interface!"</p>
+                    </div>
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 48px; height: 48px;">SM</div>
+                        <div class="ms-3">
+                            <h6 class="mb-0 fw-bold">Sarah Miller</h6>
+                            <small class="text-secondary">Tenant, San Francisco</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="premium-card p-4 h-100 bg-white d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="text-warning mb-3">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-secondary italic">"As a landlord, listing my apartments here has been a game-changer. I receive booking requests directly in my admin dashboard and approve them with one click. Best of all, it's free!"</p>
+                    </div>
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 48px; height: 48px;">JD</div>
+                        <div class="ms-3">
+                            <h6 class="mb-0 fw-bold">John Davis</h6>
+                            <small class="text-secondary">Landlord, Los Angeles</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="premium-card p-4 h-100 bg-white d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="text-warning mb-3">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <p class="text-secondary italic">"I loved the detailed filter options. Finding a 2-bedroom furnished apartment with parking in San Jose took me less than 5 minutes. The booking verification emails kept me updated."</p>
+                    </div>
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 48px; height: 48px;">AR</div>
+                        <div class="ms-3">
+                            <h6 class="mb-0 fw-bold">Alex Rivera</h6>
+                            <small class="text-secondary">Tenant, San Jose</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
