@@ -65,10 +65,26 @@ WSGI_APPLICATION = 'property_rental.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+import shutil
+
+IS_VERCEL = 'VERCEL' in os.environ or os.path.exists('/var/task')
+
+if IS_VERCEL:
+    db_path = Path('/tmp/db.sqlite3')
+    original_db = BASE_DIR / 'db.sqlite3'
+    # Copy the pre-seeded database to writable /tmp on container initialization
+    if not db_path.exists() and original_db.exists():
+        try:
+            shutil.copyfile(original_db, db_path)
+        except Exception as e:
+            print(f"Vercel DB copy warning: {e}")
+else:
+    db_path = BASE_DIR / 'db.sqlite3'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': db_path,
     }
 }
 
