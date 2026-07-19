@@ -25,6 +25,7 @@ def home(request):
     return render(request, 'portal/home.html', context)
 
 
+@login_required
 def listings(request):
     query = request.GET.get('q', '')
     city_filter = request.GET.get('city', '')
@@ -67,6 +68,7 @@ def listings(request):
     return render(request, 'portal/listings.html', context)
 
 
+@login_required
 def property_detail(request, pk):
     property_obj = get_object_or_404(Property, pk=pk)
     context = {

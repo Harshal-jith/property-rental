@@ -120,9 +120,18 @@ class ViewTests(TestCase):
         self.assertTemplateUsed(response, 'portal/home.html')
 
     def test_listings_view_filters(self):
+        self.client.login(email='test@example.com', password='testpassword123')
         response = self.client.get(reverse('listings'), {'city': 'Kochi', 'bedrooms': '3'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Test Villa')
+
+    def test_unauthenticated_listings_redirects(self):
+        response = self.client.get(reverse('listings'))
+        self.assertEqual(response.status_code, 302) # Redirect to login
+
+    def test_unauthenticated_detail_redirects(self):
+        response = self.client.get(reverse('property_detail', kwargs={'pk': self.property.pk}))
+        self.assertEqual(response.status_code, 302) # Redirect to login
 
     def test_unauthenticated_dashboard_redirects(self):
         response = self.client.get(reverse('dashboard'))
