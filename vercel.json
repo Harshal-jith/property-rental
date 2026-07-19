@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "property_rental/wsgi.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "media/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "static/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/media/(.*)",
+      "dest": "media/$1"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "property_rental/wsgi.py"
+    }
+  ]
+}
