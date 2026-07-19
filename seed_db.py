@@ -15,7 +15,7 @@ def run_seeding():
     print("Starting database seeding...")
     
     # 1. Create admin / superuser
-    admin_email = 'admin@propertyrental.com'
+    admin_email = 'admin@gmail.com'
     if not User.objects.filter(email=admin_email).exists():
         User.objects.create_superuser(
             email=admin_email,
@@ -49,7 +49,7 @@ def run_seeding():
         {
             'title': 'Kochi Heritage Luxury Villa',
             'description': 'A stunning modern villa located near the scenic Marine Drive in Kochi. Features traditional Kerala architectural design touches combined with modern high ceilings, a grand foyer, custom infinity pool, and beautiful sea views.',
-            'rent': 45000.00,
+            'rent': 450000.00,
             'city': 'Kochi',
             'address': 'Marine Drive Promenade, Kochi',
             'bedrooms': 4,
@@ -58,22 +58,22 @@ def run_seeding():
             'furnished': True,
             'parking': True,
             'available': True,
-            'main_image': 'properties/main/villa_main.jpg',
-            'gallery': ['properties/gallery/villa_gallery1.jpg', 'properties/gallery/villa_gallery2.jpg']
+            'main_image': 'properties/main/Luxury_villa_Kochi_Kerala_India_202607181611.jpeg',
+            'gallery': ['properties/gallery/Luxury_villa_Kochi_Kerala_India_202607181615.jpeg', 'properties/gallery/Luxury_villa_Kochi_Kerala_India_202607181618.jpeg']
         },
         {
             'title': 'Trivandrum Skyline Penthouse',
             'description': 'Breathtaking 3-bedroom penthouse with floor-to-ceiling windows offering views of the Arabian Sea and Trivandrum city skyline. Includes premium teakwood work, modern modular kitchen, private elevator access, and secure dual parking.',
-            'rent': 55000.00,
+            'rent': 1100000.00,
             'city': 'Trivandrum',
             'address': 'Kovalam Beach Road, Trivandrum',
-            'bedrooms': 3,
-            'bathrooms': 3,
-            'area': 3400,
+            'bedrooms': 8,
+            'bathrooms': 9,
+            'area': 6000,
             'furnished': True,
             'parking': True,
             'available': True,
-            'main_image': 'properties/main/penthouse_main.jpg',
+            'main_image': 'properties/main/Penthouse_overlooking_Arabian_Sea_2K_202607181834.jpeg',
             'gallery': ['properties/gallery/penthouse_gallery1.jpg', 'properties/gallery/penthouse_gallery2.jpg']
         },
         {
@@ -94,7 +94,7 @@ def run_seeding():
         {
             'title': 'Thrissur Spacious Family Townhouse',
             'description': 'Beautiful 3-story townhouse with a private garden in Thrissur. Offers a large spacious dining hall, newly polished traditional wood floors, laundry amenities on-site, and dedicated garage space. Close to Thrissur Round and schools.',
-            'rent': 22000.00,
+            'rent': 160000.00,
             'city': 'Thrissur',
             'address': 'Round North, Thrissur',
             'bedrooms': 3,
@@ -109,7 +109,7 @@ def run_seeding():
         {
             'title': 'Munnar Tea Garden Cottage',
             'description': 'Tranquil cottage overlooking green tea plantations in Munnar. Features private balconies, cozy fireplace setup, and scenic misty valley views. Ideal for residents seeking peace and nature away from the city.',
-            'rent': 18000.00,
+            'rent': 68000.00,
             'city': 'Munnar',
             'address': 'Munnar Hills View Road, Munnar',
             'bedrooms': 2,
@@ -118,19 +118,19 @@ def run_seeding():
             'furnished': True,
             'parking': True,
             'available': True,
-            'main_image': 'properties/main/cottage_main.jpg',
-            'gallery': ['properties/gallery/cottage_gallery1.jpg', 'properties/gallery/cottage_gallery2.jpg']
+            'main_image': 'properties/main/Tea_garden_cottage_among_plantat_202607181720.jpeg',
+            'gallery': ['properties/gallery/Tea_garden_cottage_among_plantat_202607181723.jpeg', 'properties/gallery/Tea_garden_cottage_among_plantat_202607181733.jpeg']
         },
         {
             'title': 'Kochi Central Modern Apartment',
             'description': 'Newly built modern 2-bedroom apartment with a balcony in Ernakulam. Features a contemporary open-concept layout, fully equipped modular kitchen, 24/7 security, power backup, and access to a shared rooftop terrace.',
-            'rent': 25000.00,
+            'rent': 500000.00,
             'city': 'Kochi',
             'address': 'MG Road, Ernakulam, Kochi',
-            'bedrooms': 2,
-            'bathrooms': 2,
-            'area': 1150,
-            'furnished': False,
+            'bedrooms': 5,
+            'bathrooms': 5,
+            'area': 1559,
+            'furnished': True,
             'parking': True,
             'available': True,
             'main_image': 'properties/main/apartment_main.jpg',

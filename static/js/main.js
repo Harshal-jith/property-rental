@@ -93,4 +93,52 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     }
+
+    // 5. Dark Mode Toggle & Persisted Theme State
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    const themeTooltipText = document.getElementById("theme-tooltip-text");
+
+    if (themeToggle && themeIcon && themeTooltipText) {
+        // Load stored preference on load
+        const storedTheme = localStorage.getItem("theme");
+        if (storedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            themeIcon.className = "fa-solid fa-sun";
+            themeTooltipText.textContent = "Turn off Dark Mode";
+        }
+
+        // Toggle state click listener
+        themeToggle.addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+            
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeIcon.className = "fa-solid fa-sun";
+                themeTooltipText.textContent = "Turn off Dark Mode";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeIcon.className = "fa-solid fa-moon";
+                themeTooltipText.textContent = "Turn on Dark Mode";
+            }
+        });
+
+        // Hover proximity prompt ("when cursor reaches near it it should pop")
+        document.addEventListener("mousemove", function (e) {
+            const rect = themeToggle.getBoundingClientRect();
+            // Button viewport center
+            const btnX = rect.left + rect.width / 2;
+            const btnY = rect.top + rect.height / 2;
+            
+            // Calculate absolute distance between cursor and toggle center
+            const distance = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+            
+            // If mouse cursor is within 100px of toggle, show pop tooltip!
+            if (distance < 100) {
+                themeToggle.classList.add("hover-near");
+            } else {
+                themeToggle.classList.remove("hover-near");
+            }
+        });
+    }
 });

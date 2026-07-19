@@ -133,3 +133,97 @@ class ViewTests(TestCase):
         response = self.client.get(reverse('dashboard'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'portal/dashboard.html')
+
+
+class BookingEmailTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            email='renter@example.com',
+            password='testpassword123',
+            full_name='Alice Smith'
+        )
+        self.property = Property.objects.create(
+            title='Test Sea View Penthouse',
+            description='Test descriptions.',
+            rent=5000.00,
+            city='Trivandrum',
+            address='Skyline road, Trivandrum',
+            bedrooms=3,
+            bathrooms=3,
+            area=2500,
+            furnished=True,
+            parking=True,
+            available=True,
+            main_image='properties/main/penthouse.jpg'
+        )
+
+    def test_email_sent_on_booking_creation(self):
+        from django.core import mail
+        
+        # Initially outbox should be empty
+        self.assertEqual(len(mail.outbox), 0)
+        
+        # Create a new booking request
+        booking = Booking.objects.create(
+            user=self.user,
+            property=self.property,
+            phone='9876543210',
+            email='renter@example.com',
+            move_in_date=datetime.date.today() + datetime.timedelta(days=5),
+            message='I want this penthouse!',
+            status='Pending'
+        )
+        
+        # Verify one confirmation email was dispatched
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, f"Booking Request Submitted: {self.property.title}")
+        self.assertEqual(mail.outbox[0].to, ['renter@example.com'])
+        self.assertIn('Pending Review', mail.outbox[0].body)
+
+    def test_email_sent_on_booking_approval(self):
+        from django.core import mail
+        
+        booking = Booking.objects.create(
+            user=self.user,
+            property=self.property,
+            phone='9876543210',
+            email='renter@example.com',
+            move_in_date=datetime.date.today() + datetime.timedelta(days=5),
+            status='Pending'
+        )
+        
+        # Clear outbox (1 email sent on creation)
+        mail.outbox.clear()
+        
+        # Approve booking status
+        booking.status = 'Approved'
+        booking.save()
+        
+        # Verify status update email was dispatched
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, f"Booking Request Update: {self.property.title} - Approved")
+        self.assertIn('Approved / Confirmed', mail.outbox[0].body)
+
+    def test_email_sent_on_booking_rejection(self):
+        from django.core import mail
+        
+        booking = Booking.objects.create(
+            user=self.user,
+            property=self.property,
+            phone='9876543210',
+            email='renter@example.com',
+            move_in_date=datetime.date.today() + datetime.timedelta(days=5),
+            status='Pending'
+        )
+        
+        # Clear outbox (1 email sent on creation)
+        mail.outbox.clear()
+        
+        # Reject booking status
+        booking.status = 'Rejected'
+        booking.save()
+        
+        # Verify status update email was dispatched
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, f"Booking Request Update: {self.property.title} - Rejected")
+        self.assertIn('Declined', mail.outbox[0].body)

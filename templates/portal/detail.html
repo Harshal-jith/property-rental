@@ -84,6 +84,12 @@
                             <i class="fa-solid fa-square-parking"></i>
                             <span>{% if property.parking %}Parking Available{% else %}No Parking{% endif %}</span>
                         </div>
+                        {% if "Kochi Heritage Luxury Villa" in property.title or "Trivandrum Skyline Penthouse" in property.title %}
+                        <div class="feature-pill">
+                            <i class="fa-solid fa-water-ladder"></i>
+                            <span>Infinity Pool</span>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -126,9 +132,9 @@
                         <h5 class="fw-bold text-dark mb-0">+91 98470 12345</h5>
                     </div>
 
-                    <div class="mt-3 p-3 bg-primary bg-opacity-5 rounded-3 text-start small border border-primary border-opacity-10">
-                        <i class="fa-solid fa-shield-halved text-primary me-2"></i>
-                        <span class="text-secondary">Your booking is secured through our verified workflow mechanism. No fees are charged until approval.</span>
+                    <div class="mt-3 p-3 bg-success bg-opacity-10 rounded-3 text-start small border border-success border-opacity-25">
+                        <i class="fa-solid fa-shield-halved text-success me-2"></i>
+                        <span class="text-dark fw-500">Your booking is secured through our verified workflow mechanism. No fees are charged until approval.</span>
                     </div>
                 </div>
             </div>

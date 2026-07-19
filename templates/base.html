@@ -14,7 +14,7 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=2.3">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -120,8 +120,8 @@
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-white mb-3">Contact</h5>
                     <p class="small mb-2"><i class="fa-solid fa-envelope me-2 text-primary"></i>info@havenportal.com</p>
-                    <p class="small mb-2"><i class="fa-solid fa-phone me-2 text-primary"></i>+1 (555) 123-4567</p>
-                    <p class="small mb-3"><i class="fa-solid fa-location-dot me-2 text-primary"></i>100 Luxury Blvd, SF, CA</p>
+                    <p class="small mb-2"><i class="fa-solid fa-phone me-2 text-primary"></i>+91 4842727700</p>
+                    <p class="small mb-3"><i class="fa-solid fa-location-dot me-2 text-primary"></i>34/1000, Old NH 47, Edappally Junction, Nethaji Nagar, Edappally, Kochi, Ernakulam, Kerala 682024</p>
                     <div class="social-icons">
                         <a href="#"><i class="fa-brands fa-facebook-f text-white"></i></a>
                         <a href="#"><i class="fa-brands fa-twitter text-white"></i></a>
@@ -135,17 +135,20 @@
                 <div class="col-md-6 text-center text-md-start">
                     <p class="small mb-0">&copy; 2026 HavenPortal. All rights reserved.</p>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="small mb-0">Designed for College Final-Year Project Demonstration.</p>
-                </div>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap 5 Bundle JS with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Floating Theme Toggle Switch -->
+    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+        <i class="fa-solid fa-moon" id="theme-icon"></i>
+        <span class="theme-tooltip" id="theme-tooltip-text">Turn on Dark Mode</span>
+    </button>
+
     <!-- Custom JS -->
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/main.js' %}?v=1.2"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Booking Request Approved</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #16a34a;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+        p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #475569;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+        .details-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .details-row:last-child {
+            margin-bottom: 0;
+        }
+        .label {
+            font-weight: 600;
+            color: #166534;
+        }
+        .value {
+            color: #14532d;
+            font-weight: 500;
+        }
+        .footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 20px;
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="logo">HavenPortal</span>
+        </div>
+        <h1>Booking Request Approved! 🎉</h1>
+        <p>Dear {{ recipient_name }},</p>
+        <p>We are excited to inform you that your booking request has been **Approved** by the landlord! The details of your booking are listed below:</p>
+        
+        <div class="details-box">
+            <div class="details-row">
+                <span class="label">Property:</span>
+                <span class="value">{{ booking.property.title }}</span>
+            </div>
+            <div class="details-row">
+                <span class="label">Location:</span>
+                <span class="value">{{ booking.property.city }}</span>
+            </div>
+            <div class="details-row">
+                <span class="label">Move-in Date:</span>
+                <span class="value">{{ booking.move_in_date }}</span>
+            </div>
+            <div class="details-row">
+                <span class="label">Status:</span>
+                <span class="value" style="color: #16a34a; font-weight: 700;">Approved / Confirmed</span>
+            </div>
+        </div>
+
+        <p>The landlord will contact you shortly using your registered phone number ({{ booking.phone }}) to coordinate the key handover and signing of the lease agreement.</p>
+        
+        <div class="footer">
+            &copy; 2026 HavenPortal. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

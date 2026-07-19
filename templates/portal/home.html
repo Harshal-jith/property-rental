@@ -4,16 +4,71 @@
 {% block title %}Find Your Perfect Home - HavenPortal{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section fade-in">
+<!-- Premium Simple Hero Section -->
+<section class="hero-premium-simple fade-in">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7 text-start">
-                <h1 class="hero-title mb-4">Find Your Perfect Home Today</h1>
-                <p class="hero-lead mb-5">Discover thousands of verified property listings, experience secure booking workflows, and connect directly with trusted property owners—all in one place.</p>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="{% url 'listings' %}" class="btn btn-primary btn-lg"><i class="fa-solid fa-magnifying-glass me-2"></i>Browse Properties</a>
-                    <a href="#why-choose-us" class="btn btn-outline-light btn-lg"><i class="fa-solid fa-circle-info me-2"></i>Learn More</a>
+        <div class="row align-items-center g-5">
+            <!-- Left Column: Hero Content & Minimal Search Bar -->
+            <div class="col-lg-6 text-start">
+                <div class="hero-tag-pill">
+                    <span>✨ Premium Housing Portal</span>
+                </div>
+                <h1 class="hero-simple-title">Find a place you'll <br><span>love to live.</span></h1>
+                <p class="hero-simple-lead">Discover thousands of verified property listings, experience secure booking workflows, and connect directly with trusted property owners—all in one place.</p>
+                
+                <!-- Premium Simple Search Widget -->
+                <div class="hero-simple-search">
+                    <form action="{% url 'listings' %}" method="GET">
+                        <div class="row g-2">
+                            <!-- City Input -->
+                            <div class="col-md-5">
+                                <label class="form-label" for="city-select"><i class="fa-solid fa-location-dot me-1"></i>Location</label>
+                                <select class="form-select border-0 bg-light rounded-3" id="city-select" name="city">
+                                    <option value="">All Locations</option>
+                                    <option value="Kochi">Kochi</option>
+                                    <option value="Trivandrum">Trivandrum</option>
+                                    <option value="Munnar">Munnar</option>
+                                    <option value="Thrissur">Thrissur</option>
+                                    <option value="Kozhikode">Kozhikode</option>
+                                </select>
+                            </div>
+                            <!-- Max Budget Input -->
+                            <div class="col-md-4">
+                                <label class="form-label" for="budget-input"><i class="fa-solid fa-indian-rupee-sign me-1"></i>Max Budget</label>
+                                <input type="number" class="form-control border-0 bg-light rounded-3" id="budget-input" name="rent_max" placeholder="Max Rent" min="0">
+                            </div>
+                            <!-- Search Button -->
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 border-0">
+                                    <i class="fa-solid fa-magnifying-glass me-1"></i>Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive Featured Properties Hover Slider -->
+            <div class="col-lg-6">
+                <div class="hero-image-frame" id="hero-property-slider">
+                    {% for property in featured_properties %}
+                    <a href="{% url 'property_detail' property.id %}" class="hero-slide {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}">
+                        <img src="{{ property.main_image.url }}" alt="{{ property.title }}">
+                        <div class="hero-image-badge">
+                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-10 rounded-pill px-2.5 py-1 small mb-1.5 d-inline-block">
+                                <i class="fa-solid fa-circle-check me-1"></i>Verified
+                            </span>
+                            <h6>{{ property.title }}</h6>
+                            <p><i class="fa-solid fa-location-dot me-1 text-primary"></i>{{ property.city }} • ₹{{ property.rent }}/mo</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                    <!-- Slide indicators -->
+                    <div class="slider-dots">
+                        {% for property in featured_properties %}
+                        <span class="slider-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,8 +235,8 @@
                     <div class="d-flex align-items-center mt-4">
                         <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 48px; height: 48px;">SM</div>
                         <div class="ms-3">
-                            <h6 class="mb-0 fw-bold">Sarah Miller</h6>
-                            <small class="text-secondary">Tenant, San Francisco</small>
+                            <h6 class="mb-0 fw-bold">Renjith Touchriver</h6>
+                            <small class="text-secondary">Ernakulam, Kerala</small>
                         </div>
                     </div>
                 </div>
@@ -231,4 +286,66 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const slider = document.getElementById("hero-property-slider");
+        if (!slider) return;
+
+        const slides = slider.querySelectorAll(".hero-slide");
+        const dots = slider.querySelectorAll(".slider-dot");
+        const totalSlides = slides.length;
+        let currentIndex = 0;
+
+        let hoverInterval = null;
+
+        // Change property slide every 3 seconds while cursor stays on the element
+        slider.addEventListener("mouseenter", function() {
+            if (totalSlides <= 1) return;
+            
+            if (hoverInterval) clearInterval(hoverInterval);
+            hoverInterval = setInterval(function() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateSlides();
+            }, 3000);
+        });
+
+        // Pause/stop cycling when cursor leaves
+        slider.addEventListener("mouseleave", function() {
+            if (hoverInterval) {
+                clearInterval(hoverInterval);
+                hoverInterval = null;
+            }
+        });
+
+        // Click indicators support
+        dots.forEach(dot => {
+            dot.addEventListener("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                currentIndex = parseInt(this.getAttribute("data-index"));
+                updateSlides();
+            });
+        });
+
+        function updateSlides() {
+            slides.forEach((slide, i) => {
+                if (i === currentIndex) {
+                    slide.classList.add("active");
+                } else {
+                    slide.classList.remove("active");
+                }
+            });
+            dots.forEach((dot, i) => {
+                if (i === currentIndex) {
+                    dot.classList.add("active");
+                } else {
+                    dot.classList.remove("active");
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
